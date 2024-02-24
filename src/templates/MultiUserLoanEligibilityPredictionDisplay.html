@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -19,16 +20,58 @@
 	</div>
 
     <br><br><br>
-
-    <div class="container">
-
-        <!--form action="\MultiUserLoanEligibilityPrediction.html" method="post" -->
-		
-		<!-- Render the modified CSV data -->
-		
-        <h3>{{ data|safe }}</h3>
-		
-    </div>
+    <table class="table table-bordered">
+        <thead class="table-dark">
+            <tr>
+                <th>Loan ID</th>
+                <th>Customer ID</th>
+                <th>Current Loan Amount</th>
+                <th>Term</th>
+                <th>Credit Score</th>
+                <th>Years in current job</th>
+                <th>Home Ownership</th>
+                <th>Annual Income</th>
+                <th>Purpose</th>
+                <th>Monthly Debt</th>
+                <th>Years of Credit History</th>
+                <th>Months since last delinquent</th>
+                <th>Number of Open Accounts</th>
+                <th>Number of Credit Problems</th>
+                <th>Current Credit Balance</th>
+                <th>Maximum Open Credit</th>
+                <th>Bankruptcies</th>
+                <th>Tax Liens</th>
+                <th>Loan Status</th>
+                <!-- Add more table headers as needed -->
+            </tr>
+        </thead>
+        <tbody>
+            {% for row in data %}
+            <tr>
+                <td>{{ row['Loan ID'] }}</td>
+                <td>{{ row['Customer ID'] }}</td>
+                <td>{{ row['Current Loan Amount'] }}</td>
+                <td>{{ row['Term'] }}</td>
+                <td>{{ row['Credit Score'] }}</td>
+                <td>{{ row['Years in current job'] }}</td>
+                <td>{{ row['Home Ownership'] }}</td>
+                <td>{{ row['Annual Income'] }}</td>
+                <td>{{ row['Purpose'] }}</td>
+                <td>{{ row['Monthly Debt'] }}</td>
+                <td>{{ row['Years of Credit History'] }}</td>
+                <td>{{ row['Months since last delinquent'] }}</td>
+                <td>{{ row['Number of Open Accounts'] }}</td>
+                <td>{{ row['Number of Credit Problems'] }}</td>
+                <td>{{ row['Current Credit Balance'] }}</td>
+                <td>{{ row['Maximum Open Credit'] }}</td>
+                <td>{{ row['Bankruptcies'] }}</td>
+                <td>{{ row['Tax Liens'] }}</td>
+                <td>{{ row['Loan Status'] }}</td>
+                <!-- Add more table data cells as needed -->
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
 
 	<ul class="other-footer">
 		<li class="footer"><a href="/home.html">Home</a></li>
