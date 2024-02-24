@@ -1,0 +1,267 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Banking Loan Eligibility Application - Single User</title>
+
+    <!-- BootStrap -->
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+
+    <!-- css -->
+    <link rel="stylesheet" href="../static/css/styles.css">
+
+</head>
+
+<body>
+	<div class="header">
+		<h1>Single User Loan Eligibility Prediction</h1>
+	</div>
+
+    <br><br><br>
+
+
+    <div class="container">
+
+        <form action="\SingleUserLoanEligibilityPrediction.html" method="post">
+            <div class="row">
+                <div class="col-sm-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Loan ID</h5>
+                            <!-- LoanID -->
+							<input type="LoanID-local" name="LoanID" id="LoanID" required="required">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Customer Id</h5>
+                            <!-- CustomerId -->
+							<input type="CustomerId-local" name="CustomerId" id="CustomerId" required="required">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Current Loan Amount</h5>
+                            <!-- Current Loan Amount -->
+							<input type="CurrentLoanAmount-local" name="CurrentLoanAmount" id="CurrentLoanAmount" required="required">
+                        </div>
+                    </div>
+                </div>
+			</div>
+            <br>
+            <br>
+            <div class="row">
+				<div class="col-sm-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <!-- Geography -->
+                            <h5 class="card-title">Term</h5>
+                            <select name="Term" id="Term" required="required">
+                                <option value="ShortTerm">ShortTerm</option>
+                                <option value="LongTerm">LongTerm</option>
+							</select>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+					<div class="card">
+						<div class="card-body">
+							<!-- Gender -->
+							<h5 class="card-title">Home Ownership</h5>
+							<select name="HomeOwnership" id="HomeOwnership" required="required">
+								<option value="Rent">Rent</option>
+								<option value="Home Mortgage">Home Mortgage</option>
+								<option value="Own Home">Own Home</option>
+							</select>
+						</div>
+					</div>
+                </div>
+                <div class="col-sm-4">
+					<div class="card">
+						<div class="card-body">
+							<!-- Gender -->
+							<h5 class="card-title">Purpose</h5>
+							<select name="Purpose" id="Purpose" required="required">
+								<option value="Debt Consolidation">Debt Consolidation</option>
+								<option value="Home Improvements">Home Improvements</option>
+								<option value="Business Loan">Business Loan</option>
+								<option value="small_business">small_business</option>
+								<option value="moving">moving</option>
+								<option value="Buy a Car">Buy a Car</option>
+								<option value="Medical Bills">Medical Bills</option>
+								<option value="Buy House">Buy House</option>
+								<option value="Take a Trip">Take a Trip</option>
+								<option value="major_purchase">major_purchase</option>
+								<option value="Educational Expenses">Educational Expenses</option>
+								<option value="wedding">wedding</option>
+								<option value="renewable_energy">renewable_energy</option>
+								<option value="vacation">vacation</option>
+								<option value="other">other</option>
+							</select>
+						</div>
+					</div>
+                </div>
+            </div>
+            <br>
+            <br>
+			<div class="row">
+                <div class="col-sm-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Credit Score</h5>
+                            <!-- CreditScore -->
+                            <input type="creditscore-local" name="CreditScore" id="CreditScore" required="required">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Years in current job</h5>
+                            <!-- Years in current job-->
+                            <input type="Yearsincurrentjob-local" name="Yearsincurrentjob" id="Yearsincurrentjob" required="required">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Annual Income</h5>
+                            <!-- Annual Income -->
+                            <input type="AnnualIncome-local" name="AnnualIncome" id="AnnualIncome" required="required">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <br>
+            <br>
+			<div class="row">
+                <div class="col-sm-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Monthly Debt</h5>
+                            <!-- Monthly Debt -->
+                            <input type="MonthlyDebt-local" name="MonthlyDebt" id="MonthlyDebt" required="required">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Years of Credit History</h5>
+                            <!-- Years of Credit History -->
+                            <input type="YearsofCreditHistory-local" name="YearsofCreditHistory" id="YearsofCreditHistory" required="required">
+                        </div>
+                    </div>
+                </div>
+				<div class="col-sm-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Months since last delinquent</h5>
+                            <!-- Months since last delinquent -->
+                            <input type="Monthssincelastdelinquent-local" name="Monthssincelastdelinquent" id="Monthssincelastdelinquent" required="required">
+                        </div>
+                    </div>
+                </div>
+			</div>
+			<br>
+			<br>
+			<div class="row">
+                <div class="col-sm-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Number of Open Accounts</h5>
+                            <!-- Number of Open Accounts -->
+                            <input type="NumberofOpenAccounts-local" name="NumberofOpenAccounts" id="NumberofOpenAccounts" required="required">
+                        </div>
+                    </div>
+                </div>
+				<div class="col-sm-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Number of Credit Problems</h5>
+                            <!-- Number of Credit Problems -->
+                            <input type="NumberofCreditProblems-local" name="NumberofCreditProblems" id="NumberofCreditProblems" required="required">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Current Credit Balance</h5>
+                            <!-- Current Credit Balance -->
+                            <input type="CurrentCreditBalance-local" name="CurrentCreditBalance" id="CurrentCreditBalance" required="required">
+                        </div>
+                    </div>
+                </div>
+			</div>
+			<br>
+			<br>
+			<div class="row">
+                <div class="col-sm-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Maximum Open Credit</h5>
+                            <!-- Maximum Open Credit-->
+                            <input type="MaximumOpenCredit-local" name="MaximumOpenCredit" id="MaximumOpenCredit" required="required">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Bankruptcies</h5>
+                            <!-- Years of Credit History -->
+                            <input type="Bankruptcies-local" name="Bankruptcies" id="Bankruptcies" required="required">
+                        </div>
+                    </div>
+                </div>
+				<div class="col-sm-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Tax Liens</h5>
+                            <!-- Tax Liens -->
+                            <input type="TaxLiens-local" name="TaxLiens" id="TaxLiens" required="required">
+                        </div>
+                    </div>
+                </div>
+			</div>
+			<br>
+			<br>			
+			
+            <!-- Submit -->
+            <input type="submit" value="Submit" class="btn btn-secondary">
+        </form>
+        <br>
+        <br>
+        <h3>{{ prediction_text }}</h3>
+
+        <br>
+        <br>
+    </div>
+	<ul class="other-footer">
+		<li class="footer"><a href="/home.html">Home</a></li>
+		<li class="footer"><a href="/loanEligibilityProject.html">Loan Eligibility Project Description</a></li>
+		<li class="footer"><a href="/SingleUserLoanEligibilityPrediction.html">Single User Loan Eligibility Prediction</a></li>
+		<li class="footer"><a href="/MultiUserLoanEligibilityPrediction.html">Multi User Loan Eligibility Prediction</a></li>
+	</ul>
+
+    <!-- JavaScript -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
+        integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
+        crossorigin="anonymous"></script>
+
+</body>
+
+</html>

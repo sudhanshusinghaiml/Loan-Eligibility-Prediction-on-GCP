@@ -1,0 +1,124 @@
+.header {
+  background-color: lightblue;
+  text-align: center;
+  font-size:10px;
+}
+
+body {
+    background-color: lightblue;
+    text-align: center;
+    overflow-x: hidden;
+}
+.subheading {
+	text-align: left;
+	margin: auto;
+	width: 75%;
+	}
+
+.details {
+	text-align: left;
+	margin: auto;
+	width: 75%;
+}
+
+ul.unordered-item {
+	list-style-type: none;
+	margin: auto;
+	padding: 0;
+	--bottom: 0;
+	width: 130%;
+}
+
+ul.ordered-item {
+	margin: 0;
+	list-style-type: circle;
+	text-align: left;
+}
+
+div.list-item {
+	padding-left: 250px;
+	text-align: left;
+}
+
+a {
+    color: #f1f9f9;
+	text-align: center;
+	font-size:20px;
+}
+
+a:hover {
+    color: #f0f0f0;
+	text-align: center;
+	font-size:20px;
+ }
+
+p {
+	--border-style: hidden;
+	--background-color: lightblue;
+    text-align: left;
+	height: 75px;
+	width: 60%;
+	margin: auto;
+	border: 15px;
+	padding: 25px;
+}
+
+div.topic {
+	padding: 10px;
+	text-align: left;
+	--width: 1400px;
+	width: 70%;
+	margin: auto;
+	border: 15px;
+}
+
+div.subtopic {
+	padding: 10px;
+	text-align: left;
+	--width: 1400px;
+	width: 70%;
+	margin: auto;
+	border: 15px;
+}
+
+.home-footer {
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+	overflow: hidden;
+	background-color: #333;
+	position: fixed;
+	bottom: 0;
+	width: 100%;
+}
+
+.other-footer {
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+	overflow: hidden;
+	background-color: #333;
+	position: sticky;
+	bottom: 0;
+	width: 100%;
+}
+
+li.footer {
+	float: left;
+}
+
+li.footer a {
+	display: block;
+	color: white;
+	text-align: center;
+	padding: 14px 16px;
+	text-decoration: none;
+}
+
+li.footer a:hover:not(.active) {
+  background-color: #111;
+}
+
+.active {
+  background-color: #04AA6D;
+}

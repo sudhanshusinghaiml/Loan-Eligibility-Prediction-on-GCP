@@ -1,0 +1,13 @@
+numpy==1.23.5
+pandas==1.5.3
+xgboost==2.0.3
+joblib==1.3.2
+scikit-learn==1.2.1
+gunicorn
+flask~=2.3.3
+flask_cors
+threadpoolctl==3.2.0
+gunicorn
+uvicorn==0.23.2
+openpyxl
+pickle
