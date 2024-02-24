@@ -1,17 +1,19 @@
-import pickle
+import joblib
 import os
 import numpy as np
 import pandas as pd
+from ML_Pipeline.DataPreProcessing import DataPreProcessing
 
 
 def predictor(test_df, singleuser=None):
     try:
         
         # Loading datapreProcessor to disk for preprocessing the data
-        filename = '../output/dataPreProcessing.pkl'
+        filename = 'output/dataPreProcessing.pkl'
         os.makedirs(os.path.dirname(filename), exist_ok=True)
+        print(os.getcwd())
         with open(filename, 'rb+') as f:
-            preprocessor = pickle.load(f)
+            preprocessor = joblib.load(f)
             
         # Performing data pre processing on test data
         preprocessed_df = preprocessor.transform(test_df)
@@ -32,37 +34,37 @@ def predictor(test_df, singleuser=None):
             
             
         # Loading imputeNumericalValues to disk for imputing the values
-        filename = '../output/imputeNumericalValues.pkl'
+        filename = 'output/imputeNumericalValues.pkl'
         os.makedirs(os.path.dirname(filename), exist_ok=True)
         with open(filename, 'rb+') as f:
-            imputer = pickle.load(f)
+            imputer = joblib.load(f)
         
         # Imputing the missing values in the dataset for prediction
         imputer_output_df = imputer.transform(preprocessed_df)
         
         # Loading outlierTreatment to disk for imputing the outlier values
-        filename = '../output/outlierTreatment.pkl'
+        filename = 'output/outlierTreatment.pkl'
         os.makedirs(os.path.dirname(filename), exist_ok=True)
         with open(filename, 'rb+') as f:
-            outlierProcessor = pickle.load(f)
+            outlierProcessor = joblib.load(f)
         
         # Updating outlier values in the test dataset
-        outlier_treatment_df = outlierprocessor.transform(imputer_output_df)
+        outlier_treatment_df = outlierProcessor.transform(imputer_output_df)
 
         # Loading categoricalEncoding to disk for Encoding the categorical values
-        filename = '../output/categoricalEncoding.pkl'
+        filename = 'output/categoricalEncoding.pkl'
         os.makedirs(os.path.dirname(filename), exist_ok=True)
         with open(filename, 'rb+') as f:
-            encoder = pickle.load(f)
+            encoder = joblib.load(f)
             
         # Encoding the test data so that it can be utilized for inference
         encoded_df = encoder.transform(outlier_treatment_df)
         
         # Loading XGB model to disk for prediction
-        filename = '../output/xgb_threshold_model.pkl'
+        filename = 'output/xgb_threshold_model.pkl'
         os.makedirs(os.path.dirname(filename), exist_ok=True)
         with open(filename, 'rb+') as f:
-            model = pickle.load(f)
+            model = joblib.load(f)
         
         # Predicting the target variable using trained and loaded model
         test_prediction = model.predict(encoded_df)

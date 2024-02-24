@@ -1,8 +1,21 @@
+import MultiUserLoanEligibilityPredictor
+from SingleUserLoanEligibilityPredictor import predictor
+from ML_Pipeline.DataPreProcessing import DataPreProcessing
+from ML_Pipeline.ImputeNumericalValues import ImputeNumericalValues
+from ML_Pipeline.OutlierTreatment import OutlierTreatment
+from ML_Pipeline.FeatureEncoder import FeatureEncoder
+
+from flask_cors import cross_origin
+from flask import Flask, render_template, request
 import pandas as pd
 import numpy as np
+
+# To supress future warnings
+import warnings
+warnings.filterwarnings('ignore')
+warnings.filterwarnings(action='ignore', category=FutureWarning)
+
 import os
-from flask import Flask, request
-import pickle
 import joblib
 import json
 import traceback
@@ -44,12 +57,25 @@ def project_home():
     heading = 'Banking Loan Eligibility Prediction App'
     return render_template('/loanEligibilityProject.html', heading=heading)
 
+@BankingLoanEligibilityapp.route('/UploadMultiUserData') # , methods=['GET', 'POST'])
+@cross_origin()
+def upload_multi_user_data_for_predicton():
+    status = ' '
+    if request.method == "POST":
+        to_predict_dict = request.form.to_dict()
+        flag = predictor(to_predict_dict)
+        if flag:
+            status = "Loan Application can be accepted."
+        else:
+            status = "Loan Application is rejected."
+
+    return render_template("/multiUserLoanEligibilityPrediction.html", model_training_status=status)
 
 
 # 5. Expose the prediction functionality, make a prediction from the passed
 #    JSON data and return whether given customers is eligible for loan 
 #    (http://127.0.0.1:8000/multi-user-loan-eligibility-prediction)
-@BankingLoanEligibilityapp.route('/MultiUserLoanEligibilityPrediction', methods=['POST'])
+@BankingLoanEligibilityapp.route('/multiUserLoanEligibilityPredictionDisplay.html', methods=['GET', 'POST'])
 def multi_user_loan_eligibility_predictor():
     if request.method == "POST":
         try:
@@ -68,8 +94,7 @@ def multi_user_loan_eligibility_predictor():
                 df = pd.read_csv(file.filename)
                 
                 # Get the Loan Eligibility Prediction from the model
-                predicted_data = MultiUserLoanEligibilityPredictor(df)
-                
+                predicted_data = MultiUserLoanEligibilityPredictor.predictor(df)
                 
                 # Save the modified data to a new CSV file
                 output_filename = 'MultiUserLoanEligibilityPrediction.csv'
@@ -78,29 +103,33 @@ def multi_user_loan_eligibility_predictor():
             else:
                 return 'File upload failed', 400
                 
-        except: # Exception for system errors
+        except Exception as e: # Exception for system errors
             print('Exception in multi_user_loan_eligibility_predictor', e)
         
-        # Render the HTML template with the modified data
-    return render_template("MultiUserLoanEligibilityPredictionDisplay.html", data=predicted_data.to_html())
+    # Render the HTML template with the modified data
+    # return render_template("/multiUserLoanEligibilityPrediction.html", data=predicted_data.to_html())
+    if predicted_data is not None:
+        return render_template("/multiUserLoanEligibilityPredictionDisplay.html", data=predicted_data.to_html())
+    else:
+        return render_template("/multiUserLoanEligibilityPrediction.html")
 
     
 # 6. Expose the prediction functionality, make a prediction from the passed
 #    JSON data and return whether given customers is eligible for loan 
 #    (http://127.0.0.1:8000/single-user-loan-eligibility-prediction)
-@BankingLoanEligibilityapp.route('/SingleUserLoanEligibilityPrediction', methods=['GET', 'POST'])
+@BankingLoanEligibilityapp.route('/singleUserLoanEligibilityPrediction.html', methods=['GET', 'POST'])
 @cross_origin()
 def single_user_loan_eligibility_predictor():
     status = ' '
     if request.method == "POST":
         to_predict_dict = request.form.to_dict()
-        flag = SingleUserLoanEligibilityPredictor.predictor(to_predict_dict)
+        flag = predictor(to_predict_dict)
         if flag:
-            status = "Loan Application can be accepted."
+            status = "Loan Application Approved."
         else:
             status = "Loan Application is rejected."
 
-    return render_template("SingleUserLoanEligibilityPrediction.html", model_training_status=status)
+    return render_template("/singleUserLoanEligibilityPrediction.html", prediction_text=status)
 
     
 # 7. Run the API with uvicorn
