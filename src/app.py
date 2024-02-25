@@ -67,6 +67,7 @@ def upload_file():
 @BankingLoanEligibilityapp.route('/upload_processing', methods=['POST'])
 def upload_processing():
     status = ' '
+    print('Current Working Directory-',os.getcwd())
     if request.method == "POST":
         file = request.files['csvfile']
         if file:

@@ -6,7 +6,7 @@ def predictor(input_dict):
     try:
         LoanID = str(input_dict['LoanID'])
         CustomerId = str(input_dict['CustomerId'])
-        CurrentLoanAmount = float(input_dict['CurrentLoanAmount'])
+        CurrentLoanAmount = int(input_dict['CurrentLoanAmount'])
         Term = str(input_dict['Term'])
         HomeOwnership = str(input_dict['HomeOwnership'])
         Purpose = str(input_dict['Purpose'])
@@ -14,13 +14,13 @@ def predictor(input_dict):
         Yearsincurrentjob = float(input_dict['Yearsincurrentjob'])
         AnnualIncome = float(input_dict['AnnualIncome'])
         MonthlyDebt = float(input_dict['MonthlyDebt'])
-        YearsofCreditHistory = int(input_dict['YearsofCreditHistory'])
-        Monthssincelastdelinquent = int(input_dict['Monthssincelastdelinquent'])
+        YearsofCreditHistory = float(input_dict['YearsofCreditHistory'])
+        Monthssincelastdelinquent = float(input_dict['Monthssincelastdelinquent'])
         NumberofOpenAccounts = int(input_dict['NumberofOpenAccounts'])
         NumberofCreditProblems = int(input_dict['NumberofCreditProblems'])
-        CurrentCreditBalance = float(input_dict['CurrentCreditBalance'])
+        CurrentCreditBalance = int(input_dict['CurrentCreditBalance'])
         MaximumOpenCredit = int(input_dict['MaximumOpenCredit'])
-        Bankruptcies = int(input_dict['Bankruptcies'])
+        Bankruptcies = float(input_dict['Bankruptcies'])
         TaxLiens = float(input_dict['TaxLiens'])
 
         df = [[ LoanID, CustomerId, CurrentLoanAmount, Term,  CreditScore, Yearsincurrentjob, HomeOwnership, AnnualIncome, Purpose, MonthlyDebt, YearsofCreditHistory, 
