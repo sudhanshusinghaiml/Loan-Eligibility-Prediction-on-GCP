@@ -80,8 +80,8 @@ def upload_processing():
             # Save the updated DataFrame to a new CSV file
             processed_filename = os.path.join(BankingLoanEligibilityapp.config['UPLOAD_FOLDER'], 'processed_' + file.filename)
             predicted_df.to_csv(processed_filename, index=False)
-
-            return redirect(url_for('display_multi_user_results', filename=processed_filename))
+            file_name = 'processed_' + file.filename
+            return redirect(url_for('display_multi_user_results', filename=file_name))
         
     return redirect(url_for('upload_file'))
 
@@ -90,7 +90,7 @@ def upload_processing():
 #    (http://127.0.0.1:8000/multi-user-loan-eligibility-prediction)
 @BankingLoanEligibilityapp.route('/display_multi_user_results/<filename>')
 def display_multi_user_results(filename):
-    df = pd.read_csv(filename)
+    df = pd.read_csv(os.path.join(BankingLoanEligibilityapp.config['UPLOAD_FOLDER'],filename))
     data = df.to_dict(orient='records')
     return render_template('/multiUserLoanEligibilityPredictionDisplay.html', data=data)
 
