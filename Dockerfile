@@ -20,15 +20,15 @@ WORKDIR /bankingloaneligibilityapp
 
 # Create a non-privileged user that the app will run under.
 # See https://docs.docker.com/go/dockerfile-user-best-practices/
-ARG UID=10001
-RUN adduser \
-    --disabled-password \
-    --gecos "" \
-    --home "/nonexistent" \
-    --shell "/sbin/nologin" \
-    --no-create-home \
-    --uid "${UID}" \
-    appuser
+# ARG UID=10001
+# RUN adduser \
+#     --disabled-password \
+#     --gecos "" \
+#     --home "/nonexistent" \
+#     --shell "/sbin/nologin" \
+#     --no-create-home \
+#     --uid "${UID}" \
+#     appuser
 
 # Download dependencies as a separate step to take advantage of Docker's caching.
 # Leverage a cache mount to /root/.cache/pip to speed up subsequent builds.
@@ -39,25 +39,19 @@ RUN --mount=type=cache,target=/root/.cache/pip \
     python -m pip install -r requirements.txt
 
 # Switch to the non-privileged user to run the application.
-USER appuser
+# USER appuser
 
 # Copy the source code into the container.
 COPY . .
 
-# Expose the port that the application listens on.
-EXPOSE 8000
-
-# Setting the working directory
-WORKDIR /bankingloaneligibilityapp/src
-
 # Run the application.
 # CMD gunicorn 'venv.Lib.site-packages.gunicorn.http.wsgi' --bind=0.0.0.0:8000
-CMD gunicorn app:BankingLoanEligibilityapp -w 2 --threads 2 -b 0.0.0.0:5000
 
 # Setting the working directory
 # WORKDIR /bankingloaneligibilityapp/src
-# RUN ["chmod", "+x", "gunicorn.sh"]
+RUN ["chmod", "+x", "gunicorn.sh"]
 
 # Expose the port that the application listens on.
-# EXPOSE 5000
-# ENTRYPOINT ["./gunicorn.sh"]
+EXPOSE 5000
+# ENTRYPOINT ["/bankingloaneligibilityapp/src/gunicorn.sh"]
+CMD gunicorn app:BankingLoanEligibilityapp -w 2 --threads 2 -b 0.0.0.0:5000

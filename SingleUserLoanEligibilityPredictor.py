@@ -1,5 +1,9 @@
 import pandas as pd
 import MultiUserLoanEligibilityPredictor
+from ML_Pipeline import DataPreProcessing
+from ML_Pipeline import ImputeNumericalValues
+from ML_Pipeline import OutlierTreatment
+from ML_Pipeline import FeatureEncoder
 
 
 def predictor(input_dict):

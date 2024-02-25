@@ -2,18 +2,19 @@ import joblib
 import os
 import numpy as np
 import pandas as pd
-from ML_Pipeline.DataPreProcessing import DataPreProcessing
+from ML_Pipeline import DataPreProcessing
+from ML_Pipeline import ImputeNumericalValues
+from ML_Pipeline import OutlierTreatment
+from ML_Pipeline import FeatureEncoder
 
+UPLOAD_FOLDER = 'output'
 
-def predictor(test_df, singleuser=None):
+def predictor(test_df, singleuser=False):
     try:
         
         # Loading datapreProcessor to disk for preprocessing the data
-        filename = 'output/dataPreProcessing.pkl'
-        os.makedirs(os.path.dirname(filename), exist_ok=True)
-        print(os.getcwd())
-        with open(filename, 'rb+') as f:
-            preprocessor = joblib.load(f)
+        preprocessor_filename = os.path.join(UPLOAD_FOLDER, 'dataPreProcessing.pkl')
+        preprocessor = joblib.load(preprocessor_filename)
             
         # Performing data pre processing on test data
         preprocessed_df = preprocessor.transform(test_df)
@@ -34,42 +35,38 @@ def predictor(test_df, singleuser=None):
             
             
         # Loading imputeNumericalValues to disk for imputing the values
-        filename = 'output/imputeNumericalValues.pkl'
-        os.makedirs(os.path.dirname(filename), exist_ok=True)
-        with open(filename, 'rb+') as f:
+        imputer_filename = os.path.join(UPLOAD_FOLDER, 'imputeNumericalValues.pkl')
+        with open(imputer_filename, 'rb+') as f:
             imputer = joblib.load(f)
         
         # Imputing the missing values in the dataset for prediction
         imputer_output_df = imputer.transform(preprocessed_df)
         
         # Loading outlierTreatment to disk for imputing the outlier values
-        filename = 'output/outlierTreatment.pkl'
-        os.makedirs(os.path.dirname(filename), exist_ok=True)
-        with open(filename, 'rb+') as f:
+        outlierProcessor_filename = os.path.join(UPLOAD_FOLDER, 'outlierTreatment.pkl')
+        with open(outlierProcessor_filename, 'rb+') as f:
             outlierProcessor = joblib.load(f)
         
         # Updating outlier values in the test dataset
         outlier_treatment_df = outlierProcessor.transform(imputer_output_df)
 
         # Loading categoricalEncoding to disk for Encoding the categorical values
-        filename = 'output/categoricalEncoding.pkl'
-        os.makedirs(os.path.dirname(filename), exist_ok=True)
-        with open(filename, 'rb+') as f:
+        encoder_filename = os.path.join(UPLOAD_FOLDER, 'categoricalEncoding.pkl')
+        with open(encoder_filename, 'rb+') as f:
             encoder = joblib.load(f)
             
         # Encoding the test data so that it can be utilized for inference
         encoded_df = encoder.transform(outlier_treatment_df)
         
         # Loading XGB model to disk for prediction
-        filename = 'output/xgb_threshold_model.pkl'
-        os.makedirs(os.path.dirname(filename), exist_ok=True)
-        with open(filename, 'rb+') as f:
+        model_filename = os.path.join(UPLOAD_FOLDER, 'xgb_threshold_model.pkl')
+        with open(model_filename, 'rb+') as f:
             model = joblib.load(f)
         
         # Predicting the target variable using trained and loaded model
         test_prediction = model.predict(encoded_df)
         
-        if singleuser is None:
+        if not singleuser:
         
             output_df = test_df.copy()
             

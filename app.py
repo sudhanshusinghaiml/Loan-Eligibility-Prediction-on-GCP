@@ -1,14 +1,15 @@
-import MultiUserLoanEligibilityPredictor
-from SingleUserLoanEligibilityPredictor import predictor
-from ML_Pipeline.DataPreProcessing import DataPreProcessing
-from ML_Pipeline.ImputeNumericalValues import ImputeNumericalValues
-from ML_Pipeline.OutlierTreatment import OutlierTreatment
-from ML_Pipeline.FeatureEncoder import FeatureEncoder
-
 from flask_cors import cross_origin
 from flask import Flask, redirect, render_template, request, url_for
 import pandas as pd
 import numpy as np
+
+from SingleUserLoanEligibilityPredictor import predictor
+from ML_Pipeline import DataPreProcessing
+from ML_Pipeline import ImputeNumericalValues
+from ML_Pipeline import OutlierTreatment
+from ML_Pipeline import FeatureEncoder
+from MultiUserLoanEligibilityPredictor import predictor as multiuser_predictor
+
 
 # To supress future warnings
 import warnings
@@ -17,9 +18,6 @@ warnings.filterwarnings(action='ignore', category=FutureWarning)
 
 import os
 import joblib
-import json
-import traceback
-import operator
 import six
 import sys
 
@@ -67,7 +65,6 @@ def upload_file():
 @BankingLoanEligibilityapp.route('/upload_processing', methods=['POST'])
 def upload_processing():
     status = ' '
-    print('Current Working Directory-',os.getcwd())
     if request.method == "POST":
         file = request.files['csvfile']
         if file:
@@ -78,7 +75,7 @@ def upload_processing():
             df = pd.read_csv(filename)
             
             # Calling the Loan Eligibility Prediction from the model
-            predicted_df = MultiUserLoanEligibilityPredictor.predictor(df)
+            predicted_df = multiuser_predictor(df, False)
             
             # Save the updated DataFrame to a new CSV file
             processed_filename = os.path.join(BankingLoanEligibilityapp.config['UPLOAD_FOLDER'], 'processed_' + file.filename)
