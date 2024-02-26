@@ -44,14 +44,6 @@ RUN --mount=type=cache,target=/root/.cache/pip \
 # Copy the source code into the container.
 COPY . .
 
-# Run the application.
-# CMD gunicorn 'venv.Lib.site-packages.gunicorn.http.wsgi' --bind=0.0.0.0:8000
-
-# Setting the working directory
-# WORKDIR /bankingloaneligibilityapp/src
-# RUN ["chmod", "+x", "gunicorn.sh"]
-
 # Expose the port that the application listens on.
 EXPOSE 5000
-# ENTRYPOINT ["/bankingloaneligibilityapp/src/gunicorn.sh"]
-CMD gunicorn app:BankingLoanEligibilityapp -w 1 --threads 1 -b 0.0.0.0:5000
+CMD gunicorn app:BankingLoanEligibilityapp -w 1 --threads 4 -b 0.0.0.0:5000

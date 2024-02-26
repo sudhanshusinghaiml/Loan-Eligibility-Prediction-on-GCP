@@ -51,6 +51,5 @@ def predictor(input_dict):
 
     except Exception as e:
         logger.debug('Exception in SingleUserLoanEligibilityPredictor.predictor', e)
-        print('Exception in SingleUserLoanEligibilityPredictor.predictor', e)
     else:
         return predicted_value

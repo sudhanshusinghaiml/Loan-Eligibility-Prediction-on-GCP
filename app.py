@@ -39,8 +39,10 @@ sys.modules['sklearn.utils.safe_indexing'] = sklearn.utils._safe_indexing
 # 1. Creating LoanEligibility Flask app
 BankingLoanEligibilityapp = Flask(__name__)
 
+
 UPLOAD_FOLDER = 'output'
 BankingLoanEligibilityapp.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+
 
 # 2. Index route, opens automatically on http://127.0.0.1:8000
 @BankingLoanEligibilityapp.route('/')
@@ -66,11 +68,13 @@ def project_home():
     logger.debug('This is inside project_home() function.')
     return render_template('/loanEligibilityProject.html', heading=heading)
 
+
 @BankingLoanEligibilityapp.route('/multiUserLoanEligibilityPrediction.html')
 @cross_origin()
 def upload_file():
     logger.debug('This is inside upload_file() function.')
     return render_template('/multiUserLoanEligibilityPrediction.html')
+
 
 @BankingLoanEligibilityapp.route('/upload_processing', methods=['POST'])
 def upload_processing():
@@ -81,7 +85,7 @@ def upload_processing():
             filename = os.path.join(BankingLoanEligibilityapp.config['UPLOAD_FOLDER'], file.filename)
             file.save(filename)
             
-            logger.info('The file {file.filename} is saved in {filename}')
+            logger.info('The file ',file.filename,' is saved in ', filename)
             # Reading the uploaded CSV file in datframe
             df = pd.read_csv(filename)
             
@@ -94,15 +98,17 @@ def upload_processing():
             processed_filename = os.path.join(BankingLoanEligibilityapp.config['UPLOAD_FOLDER'], 'processed_' + file.filename)
             predicted_df.to_csv(processed_filename, index=False)
             
-            logger.info('Predicted data is saved in {processed_filename}')
+            logger.info('Predicted data is saved in -', processed_filename)
             
             file_name = 'processed_' + file.filename
             
-            logger.debug('Redirected to the site to {url_for("display_multi_user_results")}')
+            logger.debug('Redirected to the site to-', url_for('display_multi_user_results'))
+
             return redirect(url_for('display_multi_user_results', filename=file_name))
 
-    logger.debug('Redirecting to the {url_for("upload_file")} site')
+    logger.debug('Redirecting to the site',url_for(upload_file))
     return redirect(url_for('upload_file'))
+
 
 # 5. Expose the prediction functionality, make a prediction from the passed
 #    JSON data and return whether given customers is eligible for loan 
@@ -126,7 +132,7 @@ def single_user_loan_eligibility_predictor():
         to_predict_dict = request.form.to_dict()
         logger.debug('Calling SingleUserLoanEligibilityPredictor.predictor function')
         flag = predictor(to_predict_dict)
-        logger.debug('The prediction value is - {flag}')
+        logger.debug('The prediction value is -',flag)
         if flag:
             status = "Loan Application Approved."
         else:
