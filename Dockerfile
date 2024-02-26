@@ -46,4 +46,4 @@ COPY . .
 
 # Expose the port that the application listens on.
 EXPOSE 5000
-CMD gunicorn app:BankingLoanEligibilityapp -w 1 --threads 4 -b 0.0.0.0:5000
+CMD gunicorn app:BankingLoanEligibilityapp --workers=2 --threads=4 --worker-class=gthread -b 0.0.0.0:5000

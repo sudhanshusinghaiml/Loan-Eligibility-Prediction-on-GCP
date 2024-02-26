@@ -2,7 +2,7 @@ from flask_cors import cross_origin
 from flask import Flask, redirect, render_template, request, url_for
 import pandas as pd
 import numpy as np
-
+from ModelTrainingEngine import model_training_pipeline
 from SingleUserLoanEligibilityPredictor import predictor
 from ML_Pipeline.DataPreProcessing import DataPreProcessing
 from ML_Pipeline.ImputeNumericalValues import ImputeNumericalValues
@@ -112,7 +112,7 @@ def upload_processing():
 
 # 5. Expose the prediction functionality, make a prediction from the passed
 #    JSON data and return whether given customers is eligible for loan 
-#    (http://127.0.0.1:8000/multi-user-loan-eligibility-prediction)
+#    (http://127.0.0.1:8000/multiUserLoanEligibilityPredictionDisplay)
 @BankingLoanEligibilityapp.route('/display_multi_user_results/<filename>')
 def display_multi_user_results(filename):
     logger.debug('Inside display_multi_user_results function')
@@ -124,7 +124,7 @@ def display_multi_user_results(filename):
     
 # 6. Expose the prediction functionality, make a prediction from the passed
 #    JSON data and return whether given customers is eligible for loan 
-#    (http://127.0.0.1:8000/single-user-loan-eligibility-prediction)
+#    (http://127.0.0.1:8000/singleUserLoanEligibilityPrediction)
 @BankingLoanEligibilityapp.route('/singleUserLoanEligibilityPrediction.html', methods=['GET', 'POST'])
 @cross_origin()
 def single_user_loan_eligibility_predictor():
@@ -143,8 +143,32 @@ def single_user_loan_eligibility_predictor():
 
     return render_template("/singleUserLoanEligibilityPrediction.html", prediction_text=status)
 
+# 7. Expose the Model Training functionality with new set of Data
+#    (http://127.0.0.1:8000/loanEligibilityModelTraining)
+@BankingLoanEligibilityapp.route('/loanEligibilityModelTraining.html', methods=['GET', 'POST'])
+@cross_origin()
+def model_training():
+    logger.debug('Inside model_training function')
+    status = ' '
+    if request.method == "POST":
+        model_training_flag = float(request.form["RetrainModel"])
+        if model_training_flag == 1:
+            logger.debug('Calling ModelTrainingEngine.model_training_pipeline')
+            flag = model_training_pipeline()
+            if flag:
+                status = "Model Training Completed"
+                logger.debug('Model Training Completed')
+            else:
+                status = "Model Training completed with some errors"
+                logger.debug('Model Training Completed with errors')
+        else:
+            status = "Model Training aborted"
+            logger.debug('Model Training aborted')
 
-# 7. Run the API with uvicorn
+    return render_template("/loanEligibilityModelTraining.html", model_training_status=status)
+
+
+# 8. Run the API with uvicorn
 #    Will run on http://127.0.0.1:8000
 if __name__ == '__main__':
     BankingLoanEligibilityapp.run(debug=True)
