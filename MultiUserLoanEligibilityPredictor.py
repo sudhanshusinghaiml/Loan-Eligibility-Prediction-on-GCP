@@ -23,7 +23,7 @@ def predictor(test_df, singleuser=False):
         # Loading datapreProcessor to disk for preprocessing the data
         preprocessor_filename = os.path.join(UPLOAD_FOLDER, 'dataPreProcessing.pkl')
         preprocessor = joblib.load(preprocessor_filename)
-        logger.debug('Loaded the preprocessor - ', preprocessor_filename)
+        logger.debug('Loaded the preprocessor object')
 
         # Performing data pre processing on test data
         preprocessed_df = preprocessor.transform(test_df)
@@ -46,7 +46,7 @@ def predictor(test_df, singleuser=False):
         # Loading imputeNumericalValues to disk for imputing the values
         imputer_filename = os.path.join(UPLOAD_FOLDER, 'imputeNumericalValues.pkl')
         imputer = joblib.load(imputer_filename)
-        logger.debug('Loaded the imputer -', imputer_filename)
+        logger.debug('Loaded the imputer object')
         
         # Imputing the missing values in the dataset for prediction
         imputer_output_df = imputer.transform(preprocessed_df)
@@ -54,7 +54,7 @@ def predictor(test_df, singleuser=False):
         # Loading outlierTreatment to disk for imputing the outlier values
         outlierProcessor_filename = os.path.join(UPLOAD_FOLDER, 'outlierTreatment.pkl')
         outlierProcessor = joblib.load(outlierProcessor_filename)
-        logger.debug('Loaded the outlierProcessor - ',outlierProcessor_filename)
+        logger.debug('Loaded the outlierProcessor object')
 
         # Updating outlier values in the test dataset
         outlier_treatment_df = outlierProcessor.transform(imputer_output_df)
@@ -62,7 +62,7 @@ def predictor(test_df, singleuser=False):
         # Loading categoricalEncoding to disk for Encoding the categorical values
         encoder_filename = os.path.join(UPLOAD_FOLDER, 'categoricalEncoding.pkl')
         encoder = joblib.load(encoder_filename)
-        logger.debug('Loaded the encoder - ', encoder_filename)
+        logger.debug('Loaded the encoder object')
 
         # Encoding the test data so that it can be utilized for inference
         encoded_df = encoder.transform(outlier_treatment_df)
@@ -70,7 +70,7 @@ def predictor(test_df, singleuser=False):
         # Loading XGB model to disk for prediction
         model_filename = os.path.join(UPLOAD_FOLDER, 'xgb_threshold_model.pkl')
         model = joblib.load(model_filename)
-        logger.debug('Loaded the model -', model_filename)
+        logger.debug('Loaded the model object')
 
         # Predicting the target variable using trained and loaded model
         test_prediction = model.predict(encoded_df)
@@ -86,6 +86,6 @@ def predictor(test_df, singleuser=False):
             return test_prediction[0]
         
     except Exception as e:
-        logger.debug('Exception in MultiUserLoanEligibilityPrediction.predictor', e)
+        logger.debug(f'Exception in MultiUserLoanEligibilityPrediction.predictor {e}')
     else:
         return output_df

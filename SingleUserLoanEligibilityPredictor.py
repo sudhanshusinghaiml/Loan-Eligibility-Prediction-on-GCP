@@ -50,6 +50,6 @@ def predictor(input_dict):
         logger.debug('Successfully executed MultiUserLoanEligibilityPredictor.predictor function for prediction on the data')
 
     except Exception as e:
-        logger.debug('Exception in SingleUserLoanEligibilityPredictor.predictor', e)
+        logger.debug(f'Exception in SingleUserLoanEligibilityPredictor.predictor {e} ')
     else:
         return predicted_value

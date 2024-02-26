@@ -39,7 +39,6 @@ sys.modules['sklearn.utils.safe_indexing'] = sklearn.utils._safe_indexing
 # 1. Creating LoanEligibility Flask app
 BankingLoanEligibilityapp = Flask(__name__)
 
-
 UPLOAD_FOLDER = 'output'
 BankingLoanEligibilityapp.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
@@ -79,13 +78,15 @@ def upload_file():
 @BankingLoanEligibilityapp.route('/upload_processing', methods=['POST'])
 def upload_processing():
     status = ' '
+    logger.debug('Inside upload_processing function')
     if request.method == "POST":
         file = request.files['csvfile']
         if file:
+            logger.debug('Detected test data file inside upload_processing function')
             filename = os.path.join(BankingLoanEligibilityapp.config['UPLOAD_FOLDER'], file.filename)
             file.save(filename)
             
-            logger.info('The file ',file.filename,' is saved in ', filename)
+            logger.info(f'The file {file.filename} is saved in {filename}')
             # Reading the uploaded CSV file in datframe
             df = pd.read_csv(filename)
             
@@ -98,15 +99,15 @@ def upload_processing():
             processed_filename = os.path.join(BankingLoanEligibilityapp.config['UPLOAD_FOLDER'], 'processed_' + file.filename)
             predicted_df.to_csv(processed_filename, index=False)
             
-            logger.info('Predicted data is saved in -', processed_filename)
+            logger.info(f'Predicted data is saved in - {processed_filename}')
             
             file_name = 'processed_' + file.filename
             
-            logger.debug('Redirected to the site to-', url_for('display_multi_user_results'))
+            logger.debug('Redirected to the site to - "/display_multi_user_results/<filename>"')
 
             return redirect(url_for('display_multi_user_results', filename=file_name))
 
-    logger.debug('Redirecting to the site',url_for(upload_file))
+    logger.debug('Redirecting to the site - "/upload_processing" ')
     return redirect(url_for('upload_file'))
 
 
@@ -115,6 +116,7 @@ def upload_processing():
 #    (http://127.0.0.1:8000/multi-user-loan-eligibility-prediction)
 @BankingLoanEligibilityapp.route('/display_multi_user_results/<filename>')
 def display_multi_user_results(filename):
+    logger.debug('Inside display_multi_user_results function')
     df = pd.read_csv(os.path.join(BankingLoanEligibilityapp.config['UPLOAD_FOLDER'],filename))
     data = df.to_dict(orient='records')
     logger.debug('Displaying the static csv data to site')
@@ -127,12 +129,14 @@ def display_multi_user_results(filename):
 @BankingLoanEligibilityapp.route('/singleUserLoanEligibilityPrediction.html', methods=['GET', 'POST'])
 @cross_origin()
 def single_user_loan_eligibility_predictor():
+    logger.debug('Inside single_user_loan_eligibility_predictor function')
     status = ' '
     if request.method == "POST":
+        logger.debug('POST - Inside single_user_loan_eligibility_predictor function')
         to_predict_dict = request.form.to_dict()
         logger.debug('Calling SingleUserLoanEligibilityPredictor.predictor function')
         flag = predictor(to_predict_dict)
-        logger.debug('The prediction value is -',flag)
+        logger.debug('The prediction for SingleUserLoanEligibilityPredictor is completed')
         if flag:
             status = "Loan Application Approved."
         else:
@@ -140,7 +144,7 @@ def single_user_loan_eligibility_predictor():
 
     return render_template("/singleUserLoanEligibilityPrediction.html", prediction_text=status)
 
-    
+
 # 7. Run the API with uvicorn
 #    Will run on http://127.0.0.1:8000
 if __name__ == '__main__':
