@@ -4,11 +4,10 @@ import pandas as pd
 import numpy as np
 
 from SingleUserLoanEligibilityPredictor import predictor
-from ML_Pipeline import DataPreProcessing
-from ML_Pipeline import ImputeNumericalValues
-from ML_Pipeline import OutlierTreatment
-from ML_Pipeline import FeatureEncoder
-# from MultiUserLoanEligibilityPredictor import predictor as multiuser_predictor
+from ML_Pipeline.DataPreProcessing import DataPreProcessing
+from ML_Pipeline.ImputeNumericalValues import ImputeNumericalValues
+from ML_Pipeline.OutlierTreatment import OutlierTreatment
+from ML_Pipeline.FeatureEncoder import FeatureEncoder
 import MultiUserLoanEligibilityPredictor
 
 # To supress future warnings
