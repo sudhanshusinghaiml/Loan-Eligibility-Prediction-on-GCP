@@ -27,11 +27,6 @@ COPY . .
 # into this layer.
 RUN pip install -r requirements.txt
 
-# Switch to the non-privileged user to run the application.
-# USER appuser
-
-
-
 # Expose the port that the application listens on.
 EXPOSE 5000
 CMD gunicorn app:BankingLoanEligibilityapp --workers=2 --threads=4 --worker-class=gthread -b 0.0.0.0:5000
