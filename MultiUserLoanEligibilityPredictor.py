@@ -7,15 +7,24 @@ from ML_Pipeline import ImputeNumericalValues
 from ML_Pipeline import OutlierTreatment
 from ML_Pipeline import FeatureEncoder
 
+# Importing for logging purpose
+import logging
+from log_config import configure_logger
+# Configure logger
+configure_logger()
+# Get logger
+logger = logging.getLogger(__name__)
+
 UPLOAD_FOLDER = 'output'
 
 def predictor(test_df, singleuser=False):
     try:
-        
+        logger.debug('In the MultiUserLoanEligibilityPredictor.predictor')
         # Loading datapreProcessor to disk for preprocessing the data
         preprocessor_filename = os.path.join(UPLOAD_FOLDER, 'dataPreProcessing.pkl')
         preprocessor = joblib.load(preprocessor_filename)
-            
+        logger.debug('Loaded the preprocessor - {preprocessor_filename}')
+
         # Performing data pre processing on test data
         preprocessed_df = preprocessor.transform(test_df)
         
@@ -36,33 +45,33 @@ def predictor(test_df, singleuser=False):
             
         # Loading imputeNumericalValues to disk for imputing the values
         imputer_filename = os.path.join(UPLOAD_FOLDER, 'imputeNumericalValues.pkl')
-        with open(imputer_filename, 'rb+') as f:
-            imputer = joblib.load(f)
+        imputer = joblib.load(imputer_filename)
+        logger.debug('Loaded the imputer - {imputer_filename}')
         
         # Imputing the missing values in the dataset for prediction
         imputer_output_df = imputer.transform(preprocessed_df)
         
         # Loading outlierTreatment to disk for imputing the outlier values
         outlierProcessor_filename = os.path.join(UPLOAD_FOLDER, 'outlierTreatment.pkl')
-        with open(outlierProcessor_filename, 'rb+') as f:
-            outlierProcessor = joblib.load(f)
-        
+        outlierProcessor = joblib.load(outlierProcessor_filename)
+        logger.debug('Loaded the outlierProcessor - {outlierProcessor_filename}')
+
         # Updating outlier values in the test dataset
         outlier_treatment_df = outlierProcessor.transform(imputer_output_df)
 
         # Loading categoricalEncoding to disk for Encoding the categorical values
         encoder_filename = os.path.join(UPLOAD_FOLDER, 'categoricalEncoding.pkl')
-        with open(encoder_filename, 'rb+') as f:
-            encoder = joblib.load(f)
-            
+        encoder = joblib.load(encoder_filename)
+        logger.debug('Loaded the encoder - {encoder_filename}')
+
         # Encoding the test data so that it can be utilized for inference
         encoded_df = encoder.transform(outlier_treatment_df)
         
         # Loading XGB model to disk for prediction
         model_filename = os.path.join(UPLOAD_FOLDER, 'xgb_threshold_model.pkl')
-        with open(model_filename, 'rb+') as f:
-            model = joblib.load(f)
-        
+        model = joblib.load(model_filename)
+        logger.debug('Loaded the model - {model_filename}')
+
         # Predicting the target variable using trained and loaded model
         test_prediction = model.predict(encoded_df)
         
@@ -77,6 +86,7 @@ def predictor(test_df, singleuser=False):
             return test_prediction[0]
         
     except Exception as e:
+        logger.debug('Exception in MultiUserLoanEligibilityPrediction.predictor', e)
         print('Exception in MultiUserLoanEligibilityPrediction.predictor', e)
     else:
         return output_df

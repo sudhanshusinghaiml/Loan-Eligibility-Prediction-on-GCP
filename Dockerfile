@@ -49,9 +49,9 @@ COPY . .
 
 # Setting the working directory
 # WORKDIR /bankingloaneligibilityapp/src
-RUN ["chmod", "+x", "gunicorn.sh"]
+# RUN ["chmod", "+x", "gunicorn.sh"]
 
 # Expose the port that the application listens on.
 EXPOSE 5000
 # ENTRYPOINT ["/bankingloaneligibilityapp/src/gunicorn.sh"]
-CMD gunicorn app:BankingLoanEligibilityapp -w 2 --threads 2 -b 0.0.0.0:5000
+CMD gunicorn app:BankingLoanEligibilityapp -w 1 --threads 1 -b 0.0.0.0:5000

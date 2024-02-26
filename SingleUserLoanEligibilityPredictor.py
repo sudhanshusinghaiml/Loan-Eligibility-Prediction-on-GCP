@@ -5,6 +5,13 @@ from ML_Pipeline import ImputeNumericalValues
 from ML_Pipeline import OutlierTreatment
 from ML_Pipeline import FeatureEncoder
 
+# Importing for logging purpose
+import logging
+from log_config import configure_logger
+# Configure logger
+configure_logger()
+# Get logger
+logger = logging.getLogger(__name__)
 
 def predictor(input_dict):
     try:
@@ -33,11 +40,17 @@ def predictor(input_dict):
                         'Monthly Debt', 'Years of Credit History','Months since last delinquent','Number of Open Accounts','Number of Credit Problems','Current Credit Balance',
                         'Maximum Open Credit', 'Bankruptcies','Tax Liens']
         test_df = pd.DataFrame(df, columns=columns_list)
+
+        logger.debug('Created DataFrame for the given Input')
         
+        logger.debug('Calling MultiUserLoanEligibilityPredictor.predictor function for prediction on the data')
         # Calling MultiUserLoanEligibilityPredictor for prediction
         predicted_value = MultiUserLoanEligibilityPredictor.predictor(test_df, singleuser=True)
 
+        logger.debug('Successfully executed MultiUserLoanEligibilityPredictor.predictor function for prediction on the data')
+
     except Exception as e:
+        logger.debug('Exception in SingleUserLoanEligibilityPredictor.predictor', e)
         print('Exception in SingleUserLoanEligibilityPredictor.predictor', e)
     else:
         return predicted_value
