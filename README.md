@@ -42,5 +42,5 @@ $ cd Loan-Eligibiltiy-Prediction-on-GCP
     ```
     - We can also run our codes in local without Docker
     ```
-    python app.py
+    $ python app.py
     ```
