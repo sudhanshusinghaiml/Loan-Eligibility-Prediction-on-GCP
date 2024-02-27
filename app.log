@@ -1,0 +1,4 @@
+2024-02-26 17:24:16,933 - werkzeug - INFO -  * Detected change in 'C:\\gitrepository\\Projects-DataScience\\Loan Eligibility Prediction on GCP\\app.py', reloading
+2024-02-26 17:24:17,265 - werkzeug - INFO -  * Restarting with stat
+2024-02-26 17:24:20,183 - werkzeug - WARNING -  * Debugger is active!
+2024-02-26 17:24:20,183 - werkzeug - INFO -  * Debugger PIN: 119-674-585
