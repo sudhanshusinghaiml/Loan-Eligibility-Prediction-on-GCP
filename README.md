@@ -5,6 +5,9 @@ This is a sample project for validating if the customer is eligible for a Loan. 
 ```
 $ git clone https://github.com/sudhanshusinghaiml/Loan-Eligibility-Prediction-on-GCP.git
 $ cd Loan-Eligibiltiy-Prediction-on-GCP
+$ python -m venv venv/
+$ source venv/Scripts/activate
+$ pip install -r requirements.txt
 ```
 
 ## Tech Stack:
