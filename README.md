@@ -53,3 +53,30 @@ $ cd Loan-Eligibiltiy-Prediction-on-GCP
   * ***[Model Scores for Test Data](https://github.com/sudhanshusinghaiml/Loan-Eligibility-Prediction-on-GCP/blob/develop/OutputImages/PerformanceScoreonTestData.jpg)***
     
   ![Scores for Test Data](https://github.com/sudhanshusinghaiml/Loan-Eligibility-Prediction-on-GCP/blob/develop/OutputImages/PerformanceScoreonTestData.jpg)
+
+- Screenshot for Inference Pipeline and Model Training
+  * ***[Model Training](https://github.com/sudhanshusinghaiml/Loan-Eligibility-Prediction-on-GCP/blob/develop/OutputImages/ModelTraining.jpg)***
+    
+  ![ModelTraining](https://github.com/sudhanshusinghaiml/Loan-Eligibility-Prediction-on-GCP/blob/develop/OutputImages/ModelTraining.jpg)
+
+
+  * ***[Single User Prediction](https://github.com/sudhanshusinghaiml/Loan-Eligibility-Prediction-on-GCP/blob/develop/OutputImages/SingleUserPrediction-Page1.jpg)***
+    
+  ![Page 1](https://github.com/sudhanshusinghaiml/Loan-Eligibility-Prediction-on-GCP/blob/develop/OutputImages/SingleUserPrediction-Page1.jpg)
+
+  ![Page 2](https://github.com/sudhanshusinghaiml/Loan-Eligibility-Prediction-on-GCP/blob/develop/OutputImages/SingleUserPrediction-Page2.jpg)
+
+
+  * ***[Single User Prediction Result](https://github.com/sudhanshusinghaiml/Loan-Eligibility-Prediction-on-GCP/blob/develop/OutputImages/SingleUserPrediction-Page3.jpg)***
+    
+  ![Result](https://github.com/sudhanshusinghaiml/Loan-Eligibility-Prediction-on-GCP/blob/develop/OutputImages/SingleUserPrediction-Page3.jpg)
+
+
+  * ***[Multi User Prediction](https://github.com/sudhanshusinghaiml/Loan-Eligibility-Prediction-on-GCP/blob/develop/OutputImages/MultiUserPrediction.jpg)***
+    
+  ![Multi User](https://github.com/sudhanshusinghaiml/Loan-Eligibility-Prediction-on-GCP/blob/develop/OutputImages/MultiUserPrediction.jpg)
+
+
+  * ***[Multi User Prediction Result](https://github.com/sudhanshusinghaiml/Loan-Eligibility-Prediction-on-GCP/blob/develop/OutputImages/MultiUserPrediction_Result.jpg)***
+    
+  ![Multi User Result](https://github.com/sudhanshusinghaiml/Loan-Eligibility-Prediction-on-GCP/blob/develop/OutputImages/MultiUserPrediction_Result.jpg)
