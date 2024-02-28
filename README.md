@@ -44,3 +44,10 @@ $ cd Loan-Eligibiltiy-Prediction-on-GCP
     ```
     $ python app.py
     ```
+
+- Extreme Gradient Boosting Algorithm was selected as the best model for performance based on "Recall" as performance metrics
+- ***[Model Scores for Training Data](https://github.com/sudhanshusinghaiml/Loan-Eligibility-Prediction-on-GCP/blob/develop/OutputImages/PerformanceScoreonTrainingData.jpg)**
+  ![Scores for Training Data](https://github.com/sudhanshusinghaiml/Loan-Eligibility-Prediction-on-GCP/blob/develop/OutputImages/PerformanceScoreonTrainingData.jpg)
+
+- ***[Model Scores for Test Data](https://github.com/sudhanshusinghaiml/Loan-Eligibility-Prediction-on-GCP/blob/develop/OutputImages/PerformanceScoreonTestData.jpg)**
+  ![Model Scores for Test Data](https://github.com/sudhanshusinghaiml/Loan-Eligibility-Prediction-on-GCP/blob/develop/OutputImages/PerformanceScoreonTestData.jpg)
